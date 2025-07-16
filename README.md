@@ -8,7 +8,7 @@ This skeleton application was built for Composer. This makes setting up a new Sl
 
 ## Install the Application
 
-cd [my-app-name]
-composer install
-cp .env-example .env
-composer start
+- cd [my-app-name]
+- composer install
+- cp .env-example .env
+- composer start
