@@ -1,0 +1,35 @@
+{% extends 'layouts/master.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Edit User</h2>
+
+<form action="/users/{{ detail.id }}/update" method="post" autocomplete="off">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nama</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ detail.name }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value="{{ detail.email }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Role</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" id="role_admin" value="admin"
+                   {% if detail.role == 'admin' %}checked{% endif %}>
+            <label class="form-check-label" for="role_admin">Admin</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" id="role_member" value="member"
+                   {% if detail.role == 'member' %}checked{% endif %}>
+            <label class="form-check-label" for="role_member">Member</label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+    <a href="/users" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}

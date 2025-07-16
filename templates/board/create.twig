@@ -1,0 +1,17 @@
+{% extends 'layouts/master.twig' %}
+
+{% block title %}Tambah Board{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Tambah Board Baru</h2>
+
+<form action="/boards/create" method="post" autocomplete="off">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nama</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+
+  <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button>
+  <a href="/boards" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}

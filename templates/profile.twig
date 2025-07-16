@@ -1,0 +1,30 @@
+{% extends 'layouts/master.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="card-title mb-4">👤 Profil Pengguna</h3>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <strong>Nama:</strong><br>
+              {{ user.name }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <strong>Email:</strong><br>
+              {{ user.email }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

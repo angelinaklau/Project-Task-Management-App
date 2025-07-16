@@ -1,0 +1,35 @@
+{% extends 'layouts/master.twig' %}
+
+{% block title %}Tambah Task{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Tambah Task Baru</h2>
+
+<form action="/boards/task" method="post" autocomplete="off">
+    <div class="mb-3">
+        <label for="title" class="form-label">Judul Task</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Deskripsi</label>
+        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="priority" class="form-label">Prioritas</label>
+        <select class="form-select" id="priority" name="priority" required>
+            <option value="">-- Pilih Prioritas --</option>
+            <option value="low">🟢 Rendah</option>
+            <option value="medium">🟡 Sedang</option>
+            <option value="high">🔴 Tinggi</option>
+        </select>
+    </div>
+
+    <input type="hidden" name="board_id" value="{{ board.id }}">
+    <input type="hidden" name="status_id" value="{{ status.id }}">
+
+    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Simpan</button>
+    <a href="/boards/{{ board.id }}" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}

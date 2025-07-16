@@ -1,0 +1,16 @@
+{% extends 'layouts/master.twig' %}
+{% block title %}Edit Board{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Edit Board</h2>
+
+<form action="/boards/{{ detail.id }}/update" method="post">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nama</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{ detail.name }}" required>
+  </div>
+
+  <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Update</button>
+  <a href="/boards" class="btn btn-secondary">Batal</a>
+</form>
+{% endblock %}
