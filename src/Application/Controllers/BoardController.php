@@ -178,6 +178,49 @@ class BoardController
         ->withStatus(302);
     }
 
+     public function editTask(Request $request, Response $response, array $args): Response
+    {
+        $taskId = (int) $args['id'];
+        $task = $this->db->get('tbl_tasks', '*', ['id' => $taskId]);
+        if (!$task) {
+            throw new HttpNotFoundException($request, "Task tidak ditemukan.");
+        }
+
+        $board = $this->db->get('tbl_boards', '*', ['id' => $task['board_id']]);
+        if (!$board) {
+            throw new HttpNotFoundException($request, "Board tidak ditemukan.");
+        }
+
+        $statuses = $this->db->select('tbl_task_statuses', '*');
+
+        return $this->view->render($response, 'board/task/edit.twig', [
+            'task' => $task,
+            'board' => $board,
+            'statuses' => $statuses,
+            'current_path' => $request->getUri()->getPath()
+        ]);
+    }
+
+    public function updateTask(Request $request, Response $response, array $args): Response
+    {
+        $taskId = (int) $args['id'];
+        $data = $request->getParsedBody();
+
+        $this->db->update('tbl_tasks', [
+            'title'       => $data['title'],
+            'description' => $data['description'],
+            'priority'    => $data['priority'],
+            'status_id'   => $data['status_id'],
+            'updated_at'  => IndoDate::now(),
+        ], ['id' => $taskId]);
+
+        $_SESSION['flash'] = 'Task berhasil diperbarui.';
+
+        return $response
+            ->withHeader('Location', '/boards/' . $data['board_id'] . '/show')
+            ->withStatus(302);
+    }
+
     public function deleteTask(Request $request, Response $response, array $args): Response
     {
         if (session_status() === PHP_SESSION_NONE) {

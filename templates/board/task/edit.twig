@@ -1,0 +1,43 @@
+{% extends 'layouts/master.twig' %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Edit Task</h2>
+
+<form action="/boards/task/{{ task.id }}/update" method="post" autocomplete="off">
+    <div class="mb-3">
+        <label for="title" class="form-label">Judul Task</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ task.title }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Deskripsi</label>
+        <textarea class="form-control" id="description" name="description" rows="4">{{ task.description }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="priority" class="form-label">Prioritas</label>
+        <select class="form-select" id="priority" name="priority" required>
+            <option value="">-- Pilih Prioritas --</option>
+            <option value="low" {% if task.priority == 'low' %}selected{% endif %}>🟢 Rendah</option>
+            <option value="medium" {% if task.priority == 'medium' %}selected{% endif %}>🟡 Sedang</option>
+            <option value="high" {% if task.priority == 'high' %}selected{% endif %}>🔴 Tinggi</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="status_id" class="form-label">Status</label>
+        <select class="form-select" id="status_id" name="status_id" required>
+            {% for status in statuses %}
+                <option value="{{ status.id }}" {% if status.id == task.status_id %}selected{% endif %}>{{ status.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <input type="hidden" name="board_id" value="{{ board.id }}">
+
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+    <a href="/boards/{{ board.id }}" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}

@@ -44,7 +44,8 @@ return function (App $app) {
         $group->get('/boards/{id}/task/{status_id}', [BoardController::class, 'task']);
         $group->post('/boards/task', [BoardController::class, 'processTask']);
         $group->get('/tasks/{id}/delete/{task_id}', [BoardController::class, 'deleteTask']);
-
+        $group->get('/boards/task/{id}/edit', [BoardController::class, 'editTask']);
+        $group->post('/boards/task/{id}/update', [BoardController::class, 'updateTask']);
 
         // users
         $group->get('/users', [UserController::class, 'index']);
