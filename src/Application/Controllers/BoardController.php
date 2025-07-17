@@ -89,6 +89,9 @@ class BoardController
 
         $tasks = $this->db->select('tbl_tasks', '*', ['board_id' => $id]);
 
+        $flash = $_SESSION['flash'] ?? null;
+        unset($_SESSION['flash']);
+
         $groupedTasks = [];
         foreach ($tasks as $task) {
             $groupedTasks[$task['status_id']][] = $task;
@@ -98,6 +101,7 @@ class BoardController
             'detail' => $data,
             'status' => $status,
             'tasks'  => $groupedTasks,
+            'session' => ['flash' => $flash],
             'current_path' => $request->getUri()->getPath()
         ]);
     }
